@@ -27,6 +27,7 @@ class Client(models.Model):
     branch=models.ForeignKey(Branch,on_delete=models.CASCADE)
     address=models.CharField(max_length=50)
     store_name=models.CharField(max_length=50)
+    debt=models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -35,6 +36,8 @@ class Employee(AbstractUser):
     is_admin=models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_sales=models.BooleanField(default=False)
+    branch=models.ForeignKey(Branch,on_delete=models.CASCADE,blank=True,null=True)
+
 class Record(models.Model):
     product=models.ForeignKey(Product,on_delete=CASCADE)
     client=models.ForeignKey(Client,on_delete=models.CASCADE)

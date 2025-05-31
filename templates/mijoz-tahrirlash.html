@@ -56,18 +56,22 @@
           <!-- Modal Header -->
 
           <!-- Modal body -->
-          <form action="#" id="edit-product-form" >
+          <form action="#" id="edit-product-form" method="post" >
+              {% csrf_token %}
               <label for="edit-product-name">FIO:</label>
-              <input type="text" name="client_name" value="{{client.name}}" placeholder="Mijoz to'liq ismi..." id="edit-product-name" class="form-control" required>
+              <input type="text" name="name" value="{{client.name}}"  id="edit-product-name" class="form-control" required>
                 <br>
               <label for="edit-product-name">Do'kon nomi:</label>
-              <input type="text" name="client_shop" value="{{client.shop_name}}" placeholder="Do'kon nomi..." id="edit-product-brend" class="form-control" required>
+              <input type="text" name="store_name" value="{{client.store_name}}"  id="edit-product-brend" class="form-control" required>
               <br>
               <label for="edit-product-name">Telefon raqami:</label>
-              <input type="text" name="client_phone" value="{{client.phone}}" placeholder="Telefon raqami..." id="edit-product-price" class="form-control" required>
+              <input type="text" name="phone" value="{{client.phone}}"  id="edit-product-price" class="form-control" required>
               <br>
               <label for="edit-product-name">Manzili:</label>
-              <input type="text" name="client_address" value="{{client.address}}" placeholder="Mijoz manzili..." id="edit-product-amount" class="form-control" required>
+              <input type="text" name="address" value="{{client.address}}"  id="edit-product-amount" class="form-control" required>
+              <br>
+                <label for="edit-product-name">Debt:</label>
+              <input type="number" name="debt" value="{{client.debt}}"  id="edit-product-amount" class="form-control" required>
               <br>
 
           <!-- Modal footer -->

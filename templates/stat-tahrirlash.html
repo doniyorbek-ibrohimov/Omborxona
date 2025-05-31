@@ -56,22 +56,31 @@
           <!-- Modal Header -->
 
           <!-- Modal body -->
-          <form action="#" id="edit-product-form" method="post">
+          <form method="post" action="#" id="edit-product-form">
               {% csrf_token %}
-              <label for="edit-product-name">Mahsulot nomi:</label>
-              <input type="text" name="name" value="{{product.name}}" placeholder="Mahsulot nomi..." id="edit-product-name" class="form-control" required>
+              <label >Mahsulot:</label>
+              <select name="product" class="form-control">
+                  {% for product in products %}
+                    <option value="{{product.id}}">{{product.name}}</option>
+                  {% endfor %}
+              </select>
                 <br>
-              <label for="edit-product-name">Brend nomi:</label>
-              <input type="text" name="brand" value="{{product.brand}}" placeholder="Brend nomi..." id="edit-product-brend" class="form-control" required>
+              <label >Client:</label>
+              <select name="client" class="form-control">
+                  {% for client in clients %}
+                    <option value="{{client.id}}">{{client.name}}</option>
+                  {% endfor %}
+              </select>
+                <br>
+
+              <label for="edit-product-name">Umumiy narxi:</label>
+              <input type="number" name="total_price" value="{{record.total_price}}" placeholder="Mahsulot narxi..." id="edit-product-price" class="form-control" required>
               <br>
-              <label for="edit-product-name">Mahsulot Kelish narxi:</label>
-              <input type="number" name="in_price" value="{{product.in_price}}" placeholder="Mahsulot narxi..." id="edit-product-price" class="form-control" required>
+              <label for="edit-product-name">To'landi:</label>
+              <input type="number" name="payed" value="{{record.payed}}" placeholder="Mahsulot narxi..." id="edit-product-price" class="form-control" required>
               <br>
-              <label for="edit-product-name">Mahsulot Sotish narxi:</label>
-              <input type="number" name="out_price" value="{{product.out_price}}" placeholder="Mahsulot narxi..." id="edit-product-price" class="form-control" required>
-              <br>
-              <label for="edit-product-name">Dona qoldi:</label>
-              <input type="number" name="amount" value="{{product.amount}}" placeholder="Dona qoldi..." id="edit-product-amount" class="form-control" required>
+              <label for="edit-product-name">Miqdori: </label>
+              <input type="number" name="amount" value="{{record.quantity}}" placeholder="Dona qoldi..." id="edit-product-amount" class="form-control" required>
               <br>
 
           <!-- Modal footer -->
