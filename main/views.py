@@ -129,7 +129,7 @@ class RecordView(View):
 class RecordUpdate(View):
     def get(self,request,pk):
         record=Record.objects.get(id=pk)
-        products = Product.objects.all(branch=request.user.branch)
+        products = Product.objects.all()
         clients = Client.objects.all()
         context = {
             'products': products,
@@ -147,16 +147,29 @@ class RecordUpdate(View):
         print("client:",client)
         client.debt-=record.loan
         client.save()
-        Record.objects.filter(id=pk).update(
-            product=product,
-            client=client,
-            quantity=request.POST.get('amount'),
-            total_price=request.POST.get('total_price'),
-            payed=request.POST.get('payed'),
-        )
+        # Record.objects.filter(id=pk).update(
+        #     product=product,
+        #     client=client,
+        #     quantity=request.POST.get('amount'),
+        #     total_price=request.POST.get('total_price'),
+        #     payed=request.POST.get('payed'),
+        # )
+        record.product.amount+=record.amount
+        record.product.amount.save()
+
+
+
+        record.product=product
+        record.client=client
+        record.amount=int(request.POST.get('amount'))
+        record.total_price=float(request.POST.get('total_price'))
+        record.payed=float(request.POST.get('payed'))
         record.loan=float(request.POST.get('total_price'))-float(request.POST.get('payed'))
 
         record.save()
+
+        product.amount -=record.amount
+        product.save()
         client.debt+=record.loan
         client.save()
 
