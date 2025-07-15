@@ -1,19 +1,23 @@
-
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt.views import token_obtain_pair,token_refresh
+
 from main.views import *
+
+router=DefaultRouter()
+router.register('products',ProductViewSet)
+router.register('clients',ClientViewSet)
+router.register('records',RecordViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',IndexView.as_view(),name='index'),
-    path('mahsulotlar/',ProductView.as_view(),name='mahsulotlar'),
-    path('mijozlar/',ClientView.as_view(),name='mijozlar'),
-    path('stats/',RecordView.as_view(),name='stats'),
-    path('stats/<int:pk>/update/',RecordUpdate.as_view(),name='stats-update'),
-    path('products/<int:pk>/update/',ProductUpdateView.as_view(),name='product_update'),
-    path('clients/<int:pk>/update/',ClientUpdateView.as_view(),name='client_update'),
+    path('',include(router.urls)),
+
 ]
 urlpatterns+=[
-    path('login/',LoginView.as_view(),name="login"),
-    path('logout/',LogoutView,name="logout")
+    path('token',token_obtain_pair),
+    path('token-refresh',token_refresh),
+    path('register/',RegisterCreateAPIView.as_view()),
 ]
